@@ -1,0 +1,23 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label stacked>Número USP</ion-label>
+    <ion-input type="text" [(ngModel)]="nusp"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Senha</ion-label>
+    <ion-input type="password" [(ngModel)]="senha"></ion-input>
+  </ion-item>
+
+  <button ion-button block (click)="confirmar()">Confirmar</button>
+  <button ion-button block (click)="cadastreSe()">Cadastre-se</button>
+</ion-content>
