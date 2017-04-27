@@ -11,6 +11,8 @@ import { HomePage } from '../pages/home/home';
 import { Login } from '../pages/login/login';
 import { MenuAluno } from '../pages/menu_aluno/menu_aluno';
 import { MenuProfessor } from '../pages/menu_prof/menu_prof';
+import { BluetoothAluno } from '../pages/bluetooth_aluno/bluetooth_aluno';
+import { BluetoothProfessor } from '../pages/bluetooth_prof/bluetooth_prof';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { MenuProfessor } from '../pages/menu_prof/menu_prof';
     HomePage,
     Login,
     MenuAluno,
-    MenuProfessor
+    MenuProfessor,
+	 BluetoothAluno,
+	 BluetoothProfessor
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,9 @@ import { MenuProfessor } from '../pages/menu_prof/menu_prof';
     HomePage,
     Login,
     MenuAluno,
-    MenuProfessor
+    MenuProfessor,
+	 BluetoothAluno,
+	 BluetoothProfessor
   ],
   providers: [
     StatusBar,
