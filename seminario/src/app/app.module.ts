@@ -11,6 +11,9 @@ import { HomePage } from '../pages/home/home';
 import { Login } from '../pages/login/login';
 import { MenuAluno } from '../pages/menu_aluno/menu_aluno';
 import { MenuProfessor } from '../pages/menu_prof/menu_prof';
+import { ListarSeminarios } from '../pages/listar_seminarios/listar_seminarios';
+import { DetalhesSeminario } from '../pages/detalhes_seminario/detalhes_seminario';
+import { CadastrarSeminario } from '../pages/cadastrar_seminario/cadastrar_seminario';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { MenuProfessor } from '../pages/menu_prof/menu_prof';
     HomePage,
     Login,
     MenuAluno,
-    MenuProfessor
+    MenuProfessor,
+	 ListarSeminarios,
+    DetalhesSeminario,
+    CadastrarSeminario
   ],
   imports: [
     BrowserModule,
@@ -33,7 +39,10 @@ import { MenuProfessor } from '../pages/menu_prof/menu_prof';
     HomePage,
     Login,
     MenuAluno,
-    MenuProfessor
+    MenuProfessor,
+	 ListarSeminarios,
+    DetalhesSeminario,
+    CadastrarSeminario
   ],
   providers: [
     StatusBar,
