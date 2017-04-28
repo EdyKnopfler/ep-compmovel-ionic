@@ -1,0 +1,14 @@
+<ion-header>
+   <ion-navbar>
+      <ion-title>{{nome}}</ion-title>
+   </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+   <button ion-button block (click)="confirmarPorBluetooth()">
+      Confirmar Presença por Bluetooth
+   </button>
+   <button ion-button block (click)="confirmarPorQR()">
+      Confirmar Presença por QRCode
+   </button>
+</ion-content>

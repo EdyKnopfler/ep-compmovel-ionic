@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Servidor } from '../../service/servidor';
 import { MenuAluno } from '../menu_aluno/menu_aluno';
 import { MenuProfessor } from '../menu_prof/menu_prof';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-login',
@@ -14,10 +15,9 @@ export class Login {
   private nusp: string;
   private senha: string;
 
-  constructor(public nav: NavController, public navParams: NavParams,
-              public servidor: Servidor) {
+  constructor(private nav: NavController, private navParams: NavParams,
+              private servidor: Servidor, private alertCtrl: AlertController) {
     this.tipo = navParams.get('tipo');
-    alert('recebi o tipo' + this.tipo)
   }
 
   confirmar() {
@@ -34,10 +34,15 @@ export class Login {
 
     this.servidor.post(url, {'nusp': this.nusp, 'pass': this.senha},
       () => {
-        this.nav.push(menu, {nusp: this.nusp});
+         this.nav.pop();
+         this.nav.push(menu, {nusp: this.nusp});
       },
       erro => {
-        alert('NUSP ou senha incorretos.');
+        this.alertCtrl.create({
+          title: 'Login',
+          subTitle: 'NUSP ou senha incorretos.',
+          buttons: ['OK']
+        }).present();
       }
     );
   }

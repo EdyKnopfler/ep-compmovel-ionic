@@ -13,6 +13,10 @@ import { MenuAluno } from '../pages/menu_aluno/menu_aluno';
 import { MenuProfessor } from '../pages/menu_prof/menu_prof';
 import { BluetoothAluno } from '../pages/bluetooth_aluno/bluetooth_aluno';
 import { BluetoothProfessor } from '../pages/bluetooth_prof/bluetooth_prof';
+import { ListarSeminarios } from '../pages/listar_seminarios/listar_seminarios';
+import { CadastrarSeminario } from '../pages/cadastrar_seminario/cadastrar_seminario';
+import { DetalhesSeminarioProf } from '../pages/detalhes_seminario_prof/detalhes_seminario_prof';
+import { DetalhesSeminarioAluno } from '../pages/detalhes_seminario_aluno/detalhes_seminario_aluno';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import { BluetoothProfessor } from '../pages/bluetooth_prof/bluetooth_prof';
     MenuAluno,
     MenuProfessor,
 	 BluetoothAluno,
-	 BluetoothProfessor
+	 BluetoothProfessor,
+	 ListarSeminarios,
+    DetalhesSeminarioProf,
+    DetalhesSeminarioAluno,
+    CadastrarSeminario
   ],
   imports: [
     BrowserModule,
@@ -39,7 +47,11 @@ import { BluetoothProfessor } from '../pages/bluetooth_prof/bluetooth_prof';
     MenuAluno,
     MenuProfessor,
 	 BluetoothAluno,
-	 BluetoothProfessor
+	 BluetoothProfessor,
+	 ListarSeminarios,
+    DetalhesSeminarioProf,
+    DetalhesSeminarioAluno,
+    CadastrarSeminario
   ],
   providers: [
     StatusBar,
