@@ -26,7 +26,7 @@ export class DetalhesSeminario {
    listarAlunos() {
       this.servidor.post('attendence/listStudents', {'seminar_id' : this.id},
          resp => {
-            // TODO Estou fazendo uma suposição sobre o formato dos dados na view :P
+            // TODO Estou fazendo uma suposição sobre o formato dos dados no servidor :P
             this.alunos = resp.data;
          },
          erro => {
@@ -56,7 +56,6 @@ export class DetalhesSeminario {
                text: 'Sim',
                handler: () => {
                   this.efetuarExclusao();
-
                }
             },
             {
