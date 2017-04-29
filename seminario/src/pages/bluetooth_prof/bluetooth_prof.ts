@@ -29,6 +29,7 @@ export class BluetoothProfessor {
    habilitarBluetooth() {
       this.bt.requestEnable(
          () => {
+            alert('habilitado')
             this.habilitarVisibilidade();
          },
          () => {
@@ -41,6 +42,7 @@ export class BluetoothProfessor {
    habilitarVisibilidade() {
       this.bt.requestDiscoverable(
          () => {
+            alert('visivel')
             this.iniciarEscuta();
          },
          () => {
@@ -54,6 +56,7 @@ export class BluetoothProfessor {
       this.bt.listenUsingRfcomm(
          UUID,
          idServidor => {
+            alert('escutando')
             this.escutando = true;
             this.idServidor = idServidor;
             this.bt.onReceive.addListener(this.recebimento);
@@ -64,14 +67,21 @@ export class BluetoothProfessor {
       );
    }
 
-   recebimento(receb) {
+   private recebimento = (receb) => {
       // TODO: dando erro: não chegava o NUSP :P
+      let msg = '';
+      for (let i in receb)
+         msg += i + ' => ' + receb[i] + '\n';
+      alert(msg)
       let nusp = stringLida(receb.data);
+      //alert('Recebi: ' + nusp);
+
       // TODO: temos que bater no server!
    }
 
    ionViewWillUnload() {
       if (this.escutando) {
+         alert('parando')
          this.bt.close(this.idServidor);
          this.bt.onReceive.removeListener(this.recebimento);
       }

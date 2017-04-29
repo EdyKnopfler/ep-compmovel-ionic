@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform, ViewController, AlertController }
+      from 'ionic-angular';
+import { UUID } from '../../service/btooth_uuid';
 
 @Component({
   selector: 'page-btooth-aluno',
@@ -15,7 +17,8 @@ export class BluetoothAluno {
    private
 
 	constructor(private nav: NavController, private plat: Platform,
-               private params: NavParams) {
+               private params: NavParams, private viewCtrl: ViewController,
+               private alertCtrl: AlertController) {
       this.idSeminario = params.get('idSeminario');
       this.nusp = params.get('nusp');
 		this.bt = (<any>window).networking.bluetooth;
@@ -41,19 +44,56 @@ export class BluetoothAluno {
       this.descobrindo = true;
       this.bt.onDeviceAdded.addListener(this.dispositivoDescoberto);
       this.bt.startDiscovery(() => {
-         setTimeout(this.pararDescoberta, 30000);
+         alert('iniciei descoberta')
+         setTimeout(this.pararDescoberta, 10000);
       });
    }
 
    private dispositivoDescoberto = (disp) => {
+      alert('descobri ' + disp.name)
       this.dispositivos.push({nome: disp.name, mac: disp.address});
    }
 
-   confirmar(endereco) {
+   selecaoDispositivo(endereco) {
+      this.pararDescoberta();
+      this.bt.connect(endereco, UUID,
+         socketId => {
+            alert('conectei a ' + endereco)
+            this.enviarNuspParaProfessor(socketId);
+         },
+         erro => {
+            this.alertCtrl.create({
+              title: 'Erro',
+              subTitle: 'Não foi possível conectar ao dispositivo. ' +
+                        'Verifique se o dispositivo selecionado é o do ' +
+                        'professor e se ele autorizou o pareamento.',
+              buttons: ['OK']
+            }).present();
+         }
+      );
+   }
 
+   enviarNuspParaProfessor(socketId) {
+      var buf = criarArrayBuffer(this.nusp);
+      this.bt.send(socketId, buf,
+         () => {
+            //this.bt.close(socketId);
+            alert('enviei ' + this.nusp)
+            this.alertCtrl.create({
+              title: 'Confirmação de Presença',
+              subTitle: 'Enviada com sucesso!',
+              buttons: ['OK']
+            }).present();
+            this.nav.pop();
+         },
+         erro => {
+            alert('ERRO: ' + erro);
+         }
+      );
    }
 
    private pararDescoberta = () => {
+      alert('parei a descoberta')
       this.bt.stopDiscovery();
       this.bt.onDeviceAdded.removeListener(this.dispositivoDescoberto);
       this.descobrindo = false;
@@ -66,7 +106,7 @@ export class BluetoothAluno {
 }
 
 function criarArrayBuffer(str) {
-  var buf = new ArrayBuffer(str.length * 2);
+  var buf = new ArrayBuffer(str.length);
   var view = new Uint16Array(buf);
 
   for (var i = 0, tam = str.length; i < tam; i++)

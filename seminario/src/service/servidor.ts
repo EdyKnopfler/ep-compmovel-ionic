@@ -42,7 +42,7 @@ export class Servidor {
       parametros = parametros.substring(1);  // tirar o 1o. "&"
 
       this.http
-         .post(SERVIDOR + url, parametros, this.postHeader)
+         .post(SERVIDOR + url, parametros, {headers: this.postHeader})
          .map(res => res.json())
          .subscribe(
             resp => {
