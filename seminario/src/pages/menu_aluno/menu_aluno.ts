@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ListarSeminarios } from '../listar_seminarios/listar_seminarios';
+import { MeusSeminarios } from '../meus_seminarios/meus_seminarios';
 
 @Component({
    selector: 'page-menu-aluno',
@@ -16,6 +17,10 @@ export class MenuAluno {
 
    listarSeminarios() {
       this.nav.push(ListarSeminarios, {nusp: this.nusp, tipo: 'aluno'});
+   }
+
+   seminariosQueAssisti() {
+      this.nav.push(MeusSeminarios, {nusp: this.nusp});
    }
 
 }

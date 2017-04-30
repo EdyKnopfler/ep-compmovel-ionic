@@ -13,7 +13,7 @@ export class DetalhesSeminarioProf {
 
    private id: string;
    private nome: string;
-   private alunos: object;  // resposta json
+   private alunos: Array<any>;
    private callback: () => void;
 
    constructor(private servidor: Servidor, params: NavParams,
@@ -27,8 +27,18 @@ export class DetalhesSeminarioProf {
    listarAlunos() {
       this.servidor.post('attendence/listStudents', {'seminar_id' : this.id},
          resp => {
-            // TODO Estou fazendo uma suposição sobre o formato dos dados no servidor :P
-            this.alunos = resp.data;
+            this.alunos = new Array();
+            for (let i in resp.data) {
+               let a:any = {};
+               a.nusp = resp.data[i].student_nusp;
+               this.servidor.get('student/get/' + a.nusp,
+                  resp => {
+                     a.nome = resp.data.name;
+                     this.alunos.push(a);
+                  },
+                  erro => {}
+               );
+            }
          },
          erro => {
             alert('ERRO:\n' + erro);
@@ -37,7 +47,11 @@ export class DetalhesSeminarioProf {
    }
 
    confirmarPresenca() {
-      this.nav.push(BluetoothProfessor, {idSeminario: this.id});
+      this.nav.push(BluetoothProfessor, {idSeminario: this.id,
+         callback: () => {
+            this.listarAlunos();
+         }
+      });
    }
 
    alterar() {

@@ -17,7 +17,11 @@
       Excluir
    </button>
 
+   <ion-card>
+      <ion-card-content>Alunos que compareceram:</ion-card-content>
+   </ion-card>
+
    <ion-list>
-      <ion-item *ngFor="let a of alunos">{{a.nusp}} - {{a.name}}</ion-item>
+      <ion-item *ngFor="let a of alunos">{{a.nusp}} - {{a.nome}}</ion-item>
    </ion-list>
 </ion-content>
