@@ -4,6 +4,7 @@ import { Servidor } from '../../service/servidor';
 import { MenuAluno } from '../menu_aluno/menu_aluno';
 import { MenuProfessor } from '../menu_prof/menu_prof';
 import { AlertController } from 'ionic-angular';
+import { CadastroUsuario } from '../cadastro_usuario/cadastro_usuario';
 
 @Component({
   selector: 'page-login',
@@ -48,7 +49,7 @@ export class Login {
   }
 
   cadastreSe() {
-
+     this.nav.push(CadastroUsuario, {tipo: this.tipo});
   }
 
 }

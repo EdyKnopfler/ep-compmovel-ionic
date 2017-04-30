@@ -18,6 +18,7 @@ import { CadastrarSeminario } from '../pages/cadastrar_seminario/cadastrar_semin
 import { DetalhesSeminarioProf } from '../pages/detalhes_seminario_prof/detalhes_seminario_prof';
 import { DetalhesSeminarioAluno } from '../pages/detalhes_seminario_aluno/detalhes_seminario_aluno';
 import { MeusSeminarios } from '../pages/meus_seminarios/meus_seminarios';
+import { CadastroUsuario } from '../pages/cadastro_usuario/cadastro_usuario';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MeusSeminarios } from '../pages/meus_seminarios/meus_seminarios';
     DetalhesSeminarioProf,
     DetalhesSeminarioAluno,
     CadastrarSeminario,
-    MeusSeminarios
+    MeusSeminarios,
+    CadastroUsuario
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ import { MeusSeminarios } from '../pages/meus_seminarios/meus_seminarios';
     DetalhesSeminarioProf,
     DetalhesSeminarioAluno,
     CadastrarSeminario,
-    MeusSeminarios
+    MeusSeminarios,
+    CadastroUsuario
   ],
   providers: [
     StatusBar,
