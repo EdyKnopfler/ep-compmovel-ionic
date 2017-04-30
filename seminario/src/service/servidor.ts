@@ -19,12 +19,10 @@ export class Servidor {
       this.http.get(SERVIDOR + url).map(res => res.json())
          .subscribe(
             resp => {
-               if (resp.success == 'true')
+               if (resp.success)
                   cbSucesso(resp);
                else
-                  cbSucesso(resp);
-               // TODO Por hora ignorando o success :P
-               // cbErro(resp.message);
+                  cbErro(resp.message);
             },
             erro => {
                cbErro(erro);
@@ -46,12 +44,10 @@ export class Servidor {
          .map(res => res.json())
          .subscribe(
             resp => {
-               if (resp.success == 'true')
+               if (resp.success)
                   cbSucesso(resp);
                else
-                  cbSucesso(resp);
-               // TODO Por hora ignorando o success :P
-               // cbErro(resp.message);
+                  cbErro(resp.message);
             },
             erro => {
                cbErro(erro);
