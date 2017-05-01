@@ -12,9 +12,10 @@ export class BluetoothAluno {
    private idSeminario: string;
    private nusp: string;
 	private bt;
+   private socket;
+   private erro;
    private descobrindo: boolean;
    private dispositivos: Array<object>;
-   private
 
 	constructor(private nav: NavController, private plat: Platform,
                private params: NavParams, private viewCtrl: ViewController,
@@ -22,6 +23,8 @@ export class BluetoothAluno {
       this.idSeminario = params.get('idSeminario');
       this.nusp = params.get('nusp');
 		this.bt = (<any>window).networking.bluetooth;
+      this.socket = (<any>window).chrome.bluetoothSocket;
+      this.erro = (<any>window).chrome.runtime;
       this.descobrindo = false;
       this.dispositivos = new Array<object>();
 	}
@@ -44,56 +47,56 @@ export class BluetoothAluno {
       this.descobrindo = true;
       this.bt.onDeviceAdded.addListener(this.dispositivoDescoberto);
       this.bt.startDiscovery(() => {
-         alert('iniciei descoberta')
          setTimeout(this.pararDescoberta, 10000);
       });
    }
 
    private dispositivoDescoberto = (disp) => {
-      alert('descobri ' + disp.name)
       this.dispositivos.push({nome: disp.name, mac: disp.address});
    }
 
    selecaoDispositivo(endereco) {
       this.pararDescoberta();
-      this.bt.connect(endereco, UUID,
-         socketId => {
-            alert('conectei a ' + endereco)
-            this.enviarNuspParaProfessor(socketId);
-         },
-         erro => {
-            this.alertCtrl.create({
-              title: 'Erro',
-              subTitle: 'Não foi possível conectar ao dispositivo. ' +
-                        'Verifique se o dispositivo selecionado é o do ' +
-                        'professor e se ele autorizou o pareamento.',
-              buttons: ['OK']
-            }).present();
-         }
-      );
+      this.socket.create(info => {
+         this.socket.setPaused(false);
+         this.socket.connect(info.socketId, endereco,
+            () => {
+               if (this.erro.lastError) {
+                  this.alertCtrl.create({
+                    title: 'Erro',
+                    subTitle: 'Não foi possível conectar ao dispositivo. ' +
+                              'Verifique se o dispositivo selecionado é o do ' +
+                              'professor e se ele autorizou o pareamento.',
+                    buttons: ['OK']
+                  }).present();
+               }
+               else
+                  this.enviarNuspParaProfessor(info.socketId);
+            }
+         );
+      });
    }
 
    enviarNuspParaProfessor(socketId) {
       var buf = criarArrayBuffer(this.nusp);
-      this.bt.send(socketId, buf,
+      this.socket.send(socketId, buf,
          () => {
-            //this.bt.close(socketId);
-            alert('enviei ' + this.nusp)
+            if (this.erro.lastError) {
+               alert('ERRO:\n' + this.erro.lastError.message)
+               return;
+            }
+
             this.alertCtrl.create({
               title: 'Confirmação de Presença',
               subTitle: 'Enviada com sucesso!',
               buttons: ['OK']
             }).present();
             this.nav.pop();
-         },
-         erro => {
-            alert('ERRO: ' + erro);
          }
       );
    }
 
    private pararDescoberta = () => {
-      alert('parei a descoberta')
       this.bt.stopDiscovery();
       this.bt.onDeviceAdded.removeListener(this.dispositivoDescoberto);
       this.descobrindo = false;

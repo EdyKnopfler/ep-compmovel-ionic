@@ -10,6 +10,8 @@ export class BluetoothProfessor {
 
    private idSeminario: string;
    private bt;
+   private socket;
+   private erro;
    private escutando: boolean;
    private idServidor: number;
 
@@ -17,6 +19,8 @@ export class BluetoothProfessor {
                private plat: Platform) {
       this.idSeminario = params.get('idSeminario');
       this.bt = (<any>window).networking.bluetooth;
+      this.socket = (<any>window).chrome.bluetoothSocket;
+      this.erro = (<any>window).chrome.runtime;
       this.escutando = false;
    }
 
@@ -29,7 +33,6 @@ export class BluetoothProfessor {
    habilitarBluetooth() {
       this.bt.requestEnable(
          () => {
-            alert('habilitado')
             this.habilitarVisibilidade();
          },
          () => {
@@ -42,7 +45,6 @@ export class BluetoothProfessor {
    habilitarVisibilidade() {
       this.bt.requestDiscoverable(
          () => {
-            alert('visivel')
             this.iniciarEscuta();
          },
          () => {
@@ -53,18 +55,25 @@ export class BluetoothProfessor {
    }
 
    iniciarEscuta() {
-      this.bt.listenUsingRfcomm(
-         UUID,
-         idServidor => {
-            alert('escutando')
-            this.escutando = true;
-            this.idServidor = idServidor;
-            this.bt.onReceive.addListener(this.recebimento);
-         },
-         erro => {
-            alert("ERRO:\n" + erro);
-         }
-      );
+      this.socket.create(info => {
+         this.idServidor = info.socketId;
+         this.socket.listenUsingRfcomm(this.idServidor, UUID,
+            () => {
+               if (this.erro.lastError) {
+                  alert('ERRO:\n' + this.erro.lastError.message)
+                  return;
+               }
+
+               this.escutando = true;
+               this.socket.onAccept.addListener(() => {
+                  // Estou seguindo a documentação... isso não faz com que adicionemos
+                  // o cara várias vezes?
+                  this.socket.onReceive.addListener(this.recebimento);
+                  this.socket.setPaused(false);
+               });
+            }
+         );
+      });
    }
 
    private recebimento = (receb) => {
@@ -74,16 +83,15 @@ export class BluetoothProfessor {
          msg += i + ' => ' + receb[i] + '\n';
       alert(msg)
       let nusp = stringLida(receb.data);
-      //alert('Recebi: ' + nusp);
+      alert('Recebi: ' + nusp);
 
       // TODO: temos que bater no server!
    }
 
    ionViewWillUnload() {
       if (this.escutando) {
-         alert('parando')
-         this.bt.close(this.idServidor);
-         this.bt.onReceive.removeListener(this.recebimento);
+         this.socket.onReceive.removeListener(this.recebimento);
+         this.socket.disconnect(this.idServidor);
       }
    }
 

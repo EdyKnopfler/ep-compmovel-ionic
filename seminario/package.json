@@ -1,7 +1,7 @@
 {
-  "name": "ionic-hello-world",
+  "name": "seminarios",
   "version": "0.0.0",
-  "author": "Ionic Framework",
+  "author": "Ângelo, Éderson, Thaiane",
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
@@ -42,5 +42,5 @@
     "cordova-plugin-splashscreen"
   ],
   "cordovaPlatforms": [],
-  "description": "Seminários: An Ionic project"
+  "description": "Seminários"
 }
