@@ -66,8 +66,8 @@ export class CadastroUsuario {
          },
          erro => {
             this.alertCtrl.create({
-               title: 'Falha',
-               subTitle: erro.message ? erro.message : erro,
+               title: 'Falha no envio',
+               subTitle: 'Os dados foram guardados para envio quando o app for reinicializado.',
                buttons: ['OK']
             }).present();
          }

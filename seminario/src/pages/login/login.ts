@@ -44,7 +44,8 @@ export class Login {
           subTitle: 'NUSP ou senha incorretos.',
           buttons: ['OK']
         }).present();
-      }
+      },
+      false  // login não requer cache
     );
   }
 
