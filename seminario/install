@@ -1,14 +1,7 @@
 #!/usr/bin/env bash
 npm install
-
-# força plugins a serem baixados
-ionic platform add android
-
-# correção
+mkdir www
+ionic state reset
 cp NetworkingBluetooth.java plugins/cordova-plugin-networking-bluetooth/src/android
-
-# força o plugin a ser recopiado
-ionic platform remove android
 ionic platform add android
-
 ionic run android
