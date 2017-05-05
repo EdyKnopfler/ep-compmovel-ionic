@@ -84,7 +84,4 @@
     <plugin name="cordova-plugin-device" spec="1.1.4" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
     <plugin name="cordova-plugin-networking-bluetooth" spec="~1.0.3" />
-    <plugin name="cordova-plugin-chrome-apps-common" spec="~1.0.7" />
-    <plugin name="cordova-plugin-chrome-apps-bluetoothsocket" spec="~1.0.1" />
-    <plugin name="cordova-plugin-chrome-apps-runtime" spec="~2.0.0" />
 </widget>

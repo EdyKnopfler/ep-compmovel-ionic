@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { UUID } from '../../service/btooth_uuid';
+import { Servidor } from '../../service/servidor';
 
 @Component({
   selector: 'page-btooth-prof',
@@ -10,17 +11,13 @@ export class BluetoothProfessor {
 
    private idSeminario: string;
    private bt;
-   private socket;
-   private erro;
    private escutando: boolean;
    private idServidor: number;
 
 	constructor(private nav: NavController, private params: NavParams,
-               private plat: Platform) {
+               private plat: Platform, private servidor: Servidor) {
       this.idSeminario = params.get('idSeminario');
       this.bt = (<any>window).networking.bluetooth;
-      this.socket = (<any>window).chrome.bluetoothSocket;
-      this.erro = (<any>window).chrome.runtime;
       this.escutando = false;
    }
 
@@ -33,6 +30,7 @@ export class BluetoothProfessor {
    habilitarBluetooth() {
       this.bt.requestEnable(
          () => {
+            alert('habilitado')
             this.habilitarVisibilidade();
          },
          () => {
@@ -45,6 +43,7 @@ export class BluetoothProfessor {
    habilitarVisibilidade() {
       this.bt.requestDiscoverable(
          () => {
+            alert('visivel')
             this.iniciarEscuta();
          },
          () => {
@@ -55,48 +54,43 @@ export class BluetoothProfessor {
    }
 
    iniciarEscuta() {
-      this.socket.create(info => {
-         this.idServidor = info.socketId;
-         this.socket.listenUsingRfcomm(this.idServidor, UUID,
-            () => {
-               if (this.erro.lastError) {
-                  alert('ERRO:\n' + this.erro.lastError.message)
-                  return;
-               }
-
-               this.escutando = true;
-               this.socket.onAccept.addListener(() => {
-                  // Estou seguindo a documentação... isso não faz com que adicionemos
-                  // o cara várias vezes?
-                  this.socket.onReceive.addListener(this.recebimento);
-                  this.socket.setPaused(false);
-               });
-            }
-         );
-      });
+      this.bt.listenUsingRfcomm(
+         UUID,
+         idServidor => {
+            alert('escutando')
+            this.escutando = true;
+            this.idServidor = idServidor;
+            this.bt.onReceive.addListener(this.recebimento);
+         },
+         erro => {
+            alert("ERRO:\n" + erro);
+         }
+      );
    }
 
    private recebimento = (receb) => {
-      // TODO: dando erro: não chegava o NUSP :P
-      let msg = '';
-      for (let i in receb)
-         msg += i + ' => ' + receb[i] + '\n';
-      alert(msg)
-      let nusp = stringLida(receb.data);
-      alert('Recebi: ' + nusp);
+      // Esquisito mas é assim que veio do plugin!
+      let nusp = receb.socketId.data;
 
-      // TODO: temos que bater no server!
+      this.servidor.post('attendence/submit',
+         {nusp: nusp, seminar_id: this.idSeminario},
+         () => {
+            // TODO: callback para a tela de detalhes do seminário atualizar a lista de alunos!
+            alert('sucésso');
+            this.nav.pop();
+         },
+         erro => {
+            alert("ERRO:\n" + erro);
+         }
+      )
    }
 
    ionViewWillUnload() {
       if (this.escutando) {
-         this.socket.onReceive.removeListener(this.recebimento);
-         this.socket.disconnect(this.idServidor);
+         alert('parando')
+         this.bt.close(this.idServidor);
+         this.bt.onReceive.removeListener(this.recebimento);
       }
    }
 
-}
-
-function stringLida(buf) {
-  return String.fromCharCode.apply(null, new Uint16Array(buf));
 }

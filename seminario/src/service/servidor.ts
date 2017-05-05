@@ -37,16 +37,10 @@ export class Servidor {
       let parametros = '';
 
       for (let campo in params)
-         parametros += '&' + campo + '=' + `${params[campo]}`;
+         parametros += '&' + campo + '=' + encodeURIComponent(params[campo]);
 
       parametros = parametros.substring(1);  // tirar o 1o. "&"
       this.postParams(url, parametros, cbSucesso, cbErro, fazerCache);
-   }
-
-   salvarNoCache(url: string, parametros: string) {
-      this.storage.ready().then(() => {
-         this.storage.set(parametros, url);
-      });
    }
 
    verificarCache(callback) {
@@ -75,6 +69,14 @@ export class Servidor {
          );
    }
 
+   private salvarNoCache(url: string, parametros: string) {
+      this.storage.ready().then(() => {
+         // Não sobrescrever requisições iguais
+         parametros += "&__hora=" + Date.now();
+         this.storage.set(parametros, url);
+      });
+   }
+
    private testaInternet() {
       this.get('teacher',
          () => {
@@ -88,7 +90,10 @@ export class Servidor {
 
    private enviarPostsNoCache() {
       this.storage.forEach((url, params) => {
-         this.postParams(url, params,
+         alert('antes: ' + params);
+         let paramsSemHora = params.substring(0, url.indexOf("&__hora"));
+         alert('postando: ' + paramsSemHora);
+         this.postParams(url, paramsSemHora,
             () => {
                this.storage.remove(params);
             },
