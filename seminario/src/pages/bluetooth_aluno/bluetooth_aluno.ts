@@ -44,13 +44,11 @@ export class BluetoothAluno {
       this.descobrindo = true;
       this.bt.onDeviceAdded.addListener(this.dispositivoDescoberto);
       this.bt.startDiscovery(() => {
-         alert('iniciei descoberta')
          setTimeout(this.pararDescoberta, 10000);
       });
    }
 
    private dispositivoDescoberto = (disp) => {
-      alert('descobri ' + disp.name)
       this.dispositivos.push({nome: disp.name, mac: disp.address});
    }
 
@@ -58,7 +56,6 @@ export class BluetoothAluno {
       this.pararDescoberta();
       this.bt.connect(endereco, UUID,
          socketId => {
-            alert('conectei a ' + endereco)
             this.enviarNuspParaProfessor(socketId);
          },
          erro => {
@@ -76,8 +73,6 @@ export class BluetoothAluno {
    enviarNuspParaProfessor(socketId) {
       this.bt.send(socketId, this.nusp,
          () => {
-            //this.bt.close(socketId);
-            alert('enviei ' + this.nusp)
             this.alertCtrl.create({
               title: 'Confirmação de Presença',
               subTitle: 'Enviada com sucesso!',
@@ -92,7 +87,6 @@ export class BluetoothAluno {
    }
 
    private pararDescoberta = () => {
-      alert('parei a descoberta')
       this.bt.stopDiscovery();
       this.bt.onDeviceAdded.removeListener(this.dispositivoDescoberto);
       this.descobrindo = false;

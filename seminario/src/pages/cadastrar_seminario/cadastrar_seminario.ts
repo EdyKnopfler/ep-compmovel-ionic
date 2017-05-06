@@ -46,12 +46,8 @@ export class CadastrarSeminario {
             if (this.callback)
                this.callback(this.nome);
          },
-         erro => {
-            this.alert.create({
-               title: 'Falha no envio',
-               subTitle: 'Os dados foram guardados para envio quando o app for reinicializado.',
-               buttons: ['OK']
-            }).present();
+         (erro, tipo) => {
+            this.servidor.msgErroPadrao(erro, tipo);
          }
       );
    }

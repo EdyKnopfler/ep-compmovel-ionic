@@ -64,12 +64,8 @@ export class CadastroUsuario {
             }).present();
             this.nav.pop();
          },
-         erro => {
-            this.alertCtrl.create({
-               title: 'Falha no envio',
-               subTitle: 'Os dados foram guardados para envio quando o app for reinicializado.',
-               buttons: ['OK']
-            }).present();
+         (erro, tipo) => {
+            this.servidor.msgErroPadrao(erro, tipo);
          }
       );
    }

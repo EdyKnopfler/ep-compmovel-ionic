@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { UUID } from '../../service/btooth_uuid';
 import { Servidor } from '../../service/servidor';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-btooth-prof',
@@ -15,7 +16,8 @@ export class BluetoothProfessor {
    private idServidor: number;
 
 	constructor(private nav: NavController, private params: NavParams,
-               private plat: Platform, private servidor: Servidor) {
+               private plat: Platform, private servidor: Servidor,
+               private alert: AlertController) {
       this.idSeminario = params.get('idSeminario');
       this.bt = (<any>window).networking.bluetooth;
       this.escutando = false;
@@ -30,7 +32,6 @@ export class BluetoothProfessor {
    habilitarBluetooth() {
       this.bt.requestEnable(
          () => {
-            alert('habilitado')
             this.habilitarVisibilidade();
          },
          () => {
@@ -43,7 +44,6 @@ export class BluetoothProfessor {
    habilitarVisibilidade() {
       this.bt.requestDiscoverable(
          () => {
-            alert('visivel')
             this.iniciarEscuta();
          },
          () => {
@@ -57,7 +57,6 @@ export class BluetoothProfessor {
       this.bt.listenUsingRfcomm(
          UUID,
          idServidor => {
-            alert('escutando')
             this.escutando = true;
             this.idServidor = idServidor;
             this.bt.onReceive.addListener(this.recebimento);
@@ -76,18 +75,16 @@ export class BluetoothProfessor {
          {nusp: nusp, seminar_id: this.idSeminario},
          () => {
             // TODO: callback para a tela de detalhes do seminário atualizar a lista de alunos!
-            alert('sucésso');
             this.nav.pop();
          },
-         erro => {
-            alert("ERRO:\n" + erro);
+         (erro, tipo) => {
+            this.servidor.msgErroPadrao(erro, tipo);
          }
       )
    }
 
    ionViewWillUnload() {
       if (this.escutando) {
-         alert('parando')
          this.bt.close(this.idServidor);
          this.bt.onReceive.removeListener(this.recebimento);
       }
