@@ -1,16 +1,29 @@
 <ion-header>
-   <ion-navbar>
-      <ion-title>Confirmar presença</ion-title>
-   </ion-navbar>
+  <ion-navbar>
+    <ion-title>Confirmar presença</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-   <ion-title>{{nome}}</ion-title>
 
-   <button ion-button block (click)="confirmarPorBluetooth()">
-      Confirmar Presença por Bluetooth
-   </button>
-   <button ion-button block (click)="confirmarPorQR()">
-      Confirmar Presença por QRCode
-   </button>
+  <ion-card>
+    
+    <ion-card-header text-wrap>
+      {{nome}}
+    </ion-card-header>
+
+    <ion-list>
+      <button ion-item (click)="confirmarPorBluetooth()">
+        <ion-icon name="md-bluetooth" item-left></ion-icon>
+        Confirmar por Bluetooth
+      </button>
+      
+      <button ion-item (click)="confirmarPorQR()">
+        <ion-icon name="md-qr-scanner" item-left></ion-icon>
+        Confirmar por QRCode
+      </button>
+    </ion-list>
+    
+  </ion-card>
+
 </ion-content>
