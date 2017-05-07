@@ -13,7 +13,7 @@ export class ListarSeminarios {
    private nusp: string;
    private tipo: string;
    private seminarios: any;  // resposta json
-   loading: any;
+   private loading: any;
    private items: any;
 
    constructor(private nav: NavController, private servidor: Servidor,

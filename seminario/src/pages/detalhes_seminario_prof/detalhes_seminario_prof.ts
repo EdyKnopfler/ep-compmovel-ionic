@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Servidor } from '../../service/servidor';
 import { AlertController } from 'ionic-angular';
 import { CadastrarSeminario } from '../cadastrar_seminario/cadastrar_seminario';
@@ -15,16 +15,26 @@ export class DetalhesSeminarioProf {
    private nome: string;
    private alunos: Array<any>;
    private callback: () => void;
+   private loading: any;
 
    constructor(private servidor: Servidor, params: NavParams,
-               private alertCtrl: AlertController, private nav: NavController) {
+               private alertCtrl: AlertController, private nav: NavController,
+               public loadingCtrl: LoadingController) {
       this.id = params.get('id');
       this.nome = params.get('nome');
       this.callback = params.get('callback');
+
+      this.loading = this.loadingCtrl.create({
+         content: `
+         <ion-spinner >Carregando</ion-spinner>`
+      });
+
       this.listarAlunos();
    }
 
    listarAlunos() {
+      this.loading.present();
+
       this.servidor.post('attendence/listStudents', {'seminar_id' : this.id},
          resp => {
             this.alunos = new Array();
@@ -39,8 +49,10 @@ export class DetalhesSeminarioProf {
                   erro => {}
                );
             }
+            this.loading.dismiss();
          },
          erro => {
+            this.loading.dismiss();
             alert('ERRO:\n' + erro);
          }
       );
