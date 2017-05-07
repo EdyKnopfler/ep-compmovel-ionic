@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ListarSeminarios } from '../listar_seminarios/listar_seminarios';
 import { MeusSeminarios } from '../meus_seminarios/meus_seminarios';
 import { CadastroUsuario } from '../cadastro_usuario/cadastro_usuario';
+import { HomePage } from '../home/home';
+
 
 @Component({
    selector: 'page-menu-aluno',
@@ -26,6 +28,10 @@ export class MenuAluno {
 
    seminariosQueAssisti() {
       this.nav.push(MeusSeminarios, {nusp: this.nusp});
+   }
+
+   desconectar() {
+      this.nav.setRoot(HomePage, {});
    }
 
 }

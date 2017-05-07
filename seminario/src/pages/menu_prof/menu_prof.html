@@ -1,13 +1,30 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Seminários - Menu do Professor
+      Menu do Professor
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <button ion-button block (click)="alterarCadastro()">Alterar Cadastro</button>
-  <button ion-button block (click)="cadastrarSeminario()">Cadastrar Seminário</button>
-  <button ion-button block (click)="listarSeminarios()">Listar Seminários</button>
+  <ion-list>
+    <button ion-item (click)="alterarCadastro()">
+      <ion-icon name="md-contact" item-left></ion-icon>
+      Alterar Cadastro
+    </button>
+
+    <button ion-item (click)="listarSeminarios()">
+      <ion-icon name="md-list" item-left></ion-icon>
+      Listar Seminários
+    </button>
+    <button ion-item (click)="cadastrarSeminario()">
+      <ion-icon name="md-create" item-left></ion-icon>
+      Cadastrar Seminário
+    </button>
+    <button ion-item (click)="desconectar()">
+      <ion-icon name="md-exit" item-left></ion-icon>
+      Desconectar
+    </button>
+
+  </ion-list>
 </ion-content>

@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ListarSeminarios } from '../listar_seminarios/listar_seminarios';
 import { CadastrarSeminario } from '../cadastrar_seminario/cadastrar_seminario';
 import { CadastroUsuario } from '../cadastro_usuario/cadastro_usuario';
+import { HomePage } from '../home/home';
 
 @Component({
    selector: 'page-menu-prof',
@@ -26,6 +27,10 @@ export class MenuProfessor {
 
    listarSeminarios() {
       this.nav.push(ListarSeminarios, {nusp: this.nusp, tipo: 'prof'});
+   }
+
+   desconectar() {
+      this.nav.setRoot(HomePage, {});
    }
 
 }

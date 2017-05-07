@@ -35,8 +35,8 @@ export class ListarSeminarios {
       this.servidor.get('seminar',
          resp => {
             this.seminarios = resp.data;
-            this.loading.dismiss();
             this.initializeItems();
+            this.loading.dismiss();
          },
          erro => {
             this.loading.dismiss();

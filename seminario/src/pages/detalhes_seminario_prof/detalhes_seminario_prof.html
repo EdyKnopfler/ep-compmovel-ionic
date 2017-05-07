@@ -1,27 +1,44 @@
 <ion-header>
    <ion-navbar>
-      <ion-title>{{nome}}</ion-title>
+      <ion-title>Detalhes</ion-title>
    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-   <button ion-button block (click)="confirmarPresenca()">
-      Receber Confirmações de Presença
-   </button>
+  <ion-card>
+    
+    <ion-card-header text-wrap>
+      {{nome}}
+    </ion-card-header>
 
-   <button ion-button block (click)="alterar()">
-      Alterar
-   </button>
+    <ion-list>
+      <ion-list-header>
+        Ações
+      </ion-list-header>
+      
+      <button ion-item (click)="confirmarPresenca()">
+        <ion-icon name="md-bluetooth" item-left></ion-icon>
+        Confirmar presenças
+      </button>
+      
+      <button ion-item (click)="alterar()">
+        <ion-icon name="md-create" item-left></ion-icon>
+        Alterar
+      </button>
 
-   <button ion-button block (click)="excluir()">
-      Excluir
-   </button>
+      <button ion-item (click)="excluir()">
+        <ion-icon name="md-trash" item-left></ion-icon>
+        Excluir
+      </button>
 
-   <ion-card>
-      <ion-card-content>Alunos que compareceram:</ion-card-content>
-   </ion-card>
+      <ion-list-header>
+        Alunos que compareceram
+      </ion-list-header>
 
-   <ion-list>
-      <ion-item *ngFor="let a of alunos">{{a.nusp}} - {{a.nome}}</ion-item>
-   </ion-list>
+      <ion-item *ngFor="let a of alunos">
+        {{a.nusp}} - {{a.nome}}
+      </ion-item>
+    </ion-list>
+
+  </ion-card>
 </ion-content>

@@ -35,8 +35,7 @@ export class Login {
 
     this.servidor.post(url, {'nusp': this.nusp, 'pass': this.senha},
       () => {
-         this.nav.pop();
-         this.nav.push(menu, {nusp: this.nusp});
+         this.nav.setRoot(menu, {nusp: this.nusp});
       },
       erro => {
         this.alertCtrl.create({
