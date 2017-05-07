@@ -13,8 +13,9 @@ export class ListarSeminarios {
    private nusp: string;
    private tipo: string;
    private mensagem: string;
-   private seminarios: object;  // resposta json
+   private seminarios: any;  // resposta json
    loading: any;
+   private items: any;
 
    constructor(private nav: NavController, private servidor: Servidor,
                params: NavParams, public loadingCtrl: LoadingController) {
@@ -42,6 +43,7 @@ export class ListarSeminarios {
          resp => {
             this.seminarios = resp.data;
             this.loading.dismiss();
+            this.initializeItems();
          },
          erro => {
             this.loading.dismiss();
@@ -62,4 +64,22 @@ export class ListarSeminarios {
          this.nav.push(DetalhesSeminarioAluno, {id: id, nome: nome, nusp: this.nusp});
    }
 
+   initializeItems() {
+      this.items = this.seminarios.map( (item) => { return item; });
+   }
+
+   getItems(ev: any) {
+      // Reset items back to all of the items
+      this.initializeItems();
+
+      // set val to the value of the searchbar
+      let val = ev.target.value;
+
+      // if the value is an empty string don't filter the items
+      if (val && val.trim() != '') {
+         this.items = this.items.filter((item) => {
+            return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+         })
+      }
+   }
 }
