@@ -12,7 +12,6 @@ export class ListarSeminarios {
 
    private nusp: string;
    private tipo: string;
-   private mensagem: string;
    private seminarios: any;  // resposta json
    loading: any;
    private items: any;
@@ -26,12 +25,6 @@ export class ListarSeminarios {
          content: `
          <ion-spinner >Carregando</ion-spinner>`
       });
-
-      if (this.tipo == 'prof')
-         this.mensagem = 'Para confirmações de presença e listagem de alunos, ' +
-                         'selecione um seminário';
-      else
-         this.mensagem = 'Selecione um seminário para confirmar presença.';
 
       this.listar();
    }
