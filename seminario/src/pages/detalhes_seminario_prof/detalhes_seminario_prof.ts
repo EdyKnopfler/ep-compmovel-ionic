@@ -4,6 +4,7 @@ import { Servidor } from '../../service/servidor';
 import { AlertController } from 'ionic-angular';
 import { CadastrarSeminario } from '../cadastrar_seminario/cadastrar_seminario';
 import { BluetoothProfessor } from '../bluetooth_prof/bluetooth_prof';
+import { MostrarQRCode } from '../mostrar_qrcode/mostrar_qrcode'; // <-------- angular2-qrcode
 
 @Component({
    selector: 'page-det-sem',
@@ -30,6 +31,10 @@ export class DetalhesSeminarioProf {
       });
 
       this.listarAlunos();
+   }
+
+   mostrarQRCode() {
+      this.nav.push(MostrarQRCode, {'seminar_id' : this.id});
    }
 
    listarAlunos() {

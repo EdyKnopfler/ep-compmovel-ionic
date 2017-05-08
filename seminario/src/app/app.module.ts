@@ -20,52 +20,57 @@ import { DetalhesSeminarioProf } from '../pages/detalhes_seminario_prof/detalhes
 import { DetalhesSeminarioAluno } from '../pages/detalhes_seminario_aluno/detalhes_seminario_aluno';
 import { MeusSeminarios } from '../pages/meus_seminarios/meus_seminarios';
 import { CadastroUsuario } from '../pages/cadastro_usuario/cadastro_usuario';
+import { QRCodeModule } from 'angular2-qrcode'; // <-------- angular2-qrcode
+import { MostrarQRCode } from '../pages/mostrar_qrcode/mostrar_qrcode'; // <-------- angular2-qrcode
 
 @NgModule({
-  declarations: [
-    MyApp,
-    /* Insira as novas páginas aqui */
-    HomePage,
-    Login,
-    MenuAluno,
-    MenuProfessor,
-	 BluetoothAluno,
-	 BluetoothProfessor,
-	 ListarSeminarios,
-    DetalhesSeminarioProf,
-    DetalhesSeminarioAluno,
-    CadastrarSeminario,
-    MeusSeminarios,
-    CadastroUsuario
-  ],
-  imports: [
-    BrowserModule,
-    HttpModule,
-    IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    /* Insira as novas páginas aqui TAMBÉM! */
-    HomePage,
-    Login,
-    MenuAluno,
-    MenuProfessor,
-	 BluetoothAluno,
-	 BluetoothProfessor,
-	 ListarSeminarios,
-    DetalhesSeminarioProf,
-    DetalhesSeminarioAluno,
-    CadastrarSeminario,
-    MeusSeminarios,
-    CadastroUsuario
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    Servidor,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
-  ]
+   declarations: [
+      MyApp,
+      /* Insira as novas páginas aqui */
+      HomePage,
+      Login,
+      MenuAluno,
+      MenuProfessor,
+      BluetoothAluno,
+      BluetoothProfessor,
+      ListarSeminarios,
+      DetalhesSeminarioProf,
+      MostrarQRCode, // <-------- angular2-qrcode
+      DetalhesSeminarioAluno,
+      CadastrarSeminario,
+      MeusSeminarios,
+      CadastroUsuario
+   ],
+   imports: [
+      BrowserModule,
+      QRCodeModule, // <-------- angular2-qrcode
+      HttpModule,
+      IonicModule.forRoot(MyApp),
+      IonicStorageModule.forRoot()
+   ],
+   bootstrap: [IonicApp],
+   entryComponents: [
+      MyApp,
+      /* Insira as novas páginas aqui TAMBÉM! */
+      HomePage,
+      Login,
+      MenuAluno,
+      MenuProfessor,
+      BluetoothAluno,
+      BluetoothProfessor,
+      ListarSeminarios,
+      DetalhesSeminarioProf,
+      MostrarQRCode, // <-------- angular2-qrcode
+      DetalhesSeminarioAluno,
+      CadastrarSeminario,
+      MeusSeminarios,
+      CadastroUsuario
+   ],
+   providers: [
+      StatusBar,
+      SplashScreen,
+      Servidor,
+      {provide: ErrorHandler, useClass: IonicErrorHandler}
+   ]
 })
 export class AppModule {}
