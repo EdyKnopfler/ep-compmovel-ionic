@@ -3,5 +3,6 @@ npm install
 mkdir www
 ionic state reset
 cp NetworkingBluetooth.java plugins/cordova-plugin-networking-bluetooth/src/android
+npm install angular2-qrcode
 ionic platform add android
 ionic run android
