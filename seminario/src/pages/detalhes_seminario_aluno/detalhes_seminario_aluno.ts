@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { BluetoothAluno } from '../bluetooth_aluno/bluetooth_aluno';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @Component({
    selector: 'page-det-sem',
@@ -12,7 +13,8 @@ export class DetalhesSeminarioAluno {
    private nome: string;
    private nusp: string;
 
-   constructor(params: NavParams, private nav: NavController) {
+   constructor(private barcodeScanner: BarcodeScanner,
+               params: NavParams, private nav: NavController) {
       this.id = params.get('id');
       this.nome = params.get('nome');
       this.nusp = params.get('nusp');
@@ -23,7 +25,11 @@ export class DetalhesSeminarioAluno {
    }
 
    confirmarPorQR() {
-
+      this.barcodeScanner.scan().then((barcodeData) => {
+         alert("Text: " + barcodeData.text + "\n" + "Format: " + barcodeData.format);
+      }, (err) => {
+         alert(err.message);
+      });
    }
 
 }

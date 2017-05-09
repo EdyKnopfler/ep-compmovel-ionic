@@ -22,6 +22,7 @@ import { MeusSeminarios } from '../pages/meus_seminarios/meus_seminarios';
 import { CadastroUsuario } from '../pages/cadastro_usuario/cadastro_usuario';
 import { QRCodeModule } from 'angular2-qrcode'; // <-------- angular2-qrcode
 import { MostrarQRCode } from '../pages/mostrar_qrcode/mostrar_qrcode'; // <-------- angular2-qrcode
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @NgModule({
    declarations: [
@@ -67,6 +68,7 @@ import { MostrarQRCode } from '../pages/mostrar_qrcode/mostrar_qrcode'; // <----
       CadastroUsuario
    ],
    providers: [
+      BarcodeScanner,
       StatusBar,
       SplashScreen,
       Servidor,
