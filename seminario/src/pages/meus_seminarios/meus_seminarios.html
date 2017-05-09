@@ -1,11 +1,17 @@
 <ion-header>
-   <ion-navbar>
-      <ion-title>Seminários que Assisti</ion-title>
-   </ion-navbar>
+  <ion-navbar>
+    <ion-title>Seminários que Assisti</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <!-- <ion-list> -->
+  <!--    <ion-item *ngFor="let sem of seminarios">{{sem}}</ion-item> -->
+  <!-- </ion-list> -->
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list>
-     <ion-item *ngFor="let sem of seminarios">{{sem}}</ion-item>
+    <ion-item text-wrap *ngFor="let item of items">
+      {{ item }}
+    </ion-item>
   </ion-list>
 </ion-content>

@@ -20,8 +20,8 @@ import { DetalhesSeminarioProf } from '../pages/detalhes_seminario_prof/detalhes
 import { DetalhesSeminarioAluno } from '../pages/detalhes_seminario_aluno/detalhes_seminario_aluno';
 import { MeusSeminarios } from '../pages/meus_seminarios/meus_seminarios';
 import { CadastroUsuario } from '../pages/cadastro_usuario/cadastro_usuario';
-import { QRCodeModule } from 'angular2-qrcode'; // <-------- angular2-qrcode
-import { MostrarQRCode } from '../pages/mostrar_qrcode/mostrar_qrcode'; // <-------- angular2-qrcode
+import { QRCodeModule } from 'angular2-qrcode'; 
+import { MostrarQRCode } from '../pages/mostrar_qrcode/mostrar_qrcode'; 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @NgModule({
@@ -36,7 +36,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
       BluetoothProfessor,
       ListarSeminarios,
       DetalhesSeminarioProf,
-      MostrarQRCode, // <-------- angular2-qrcode
+      MostrarQRCode, 
       DetalhesSeminarioAluno,
       CadastrarSeminario,
       MeusSeminarios,
@@ -44,7 +44,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
    ],
    imports: [
       BrowserModule,
-      QRCodeModule, // <-------- angular2-qrcode
+      QRCodeModule, 
       HttpModule,
       IonicModule.forRoot(MyApp),
       IonicStorageModule.forRoot()
@@ -61,7 +61,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
       BluetoothProfessor,
       ListarSeminarios,
       DetalhesSeminarioProf,
-      MostrarQRCode, // <-------- angular2-qrcode
+      MostrarQRCode, 
       DetalhesSeminarioAluno,
       CadastrarSeminario,
       MeusSeminarios,

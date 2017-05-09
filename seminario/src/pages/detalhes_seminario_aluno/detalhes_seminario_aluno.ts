@@ -29,7 +29,6 @@ export class DetalhesSeminarioAluno {
 
    confirmarPorQR() {
       this.barcodeScanner.scan().then((barcodeData) => {
-         alert("Text: " + barcodeData.text + "\n" + "Format: " + barcodeData.format);
          this.enviarConfirmacao(barcodeData.text);
       }, (err) => {
          alert(err.message);
