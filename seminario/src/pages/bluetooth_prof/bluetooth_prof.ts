@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { UUID } from '../../service/btooth_uuid';
 import { Servidor } from '../../service/servidor';
-import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-btooth-prof',
@@ -14,11 +13,12 @@ export class BluetoothProfessor {
    private bt;
    private escutando: boolean;
    private idServidor: number;
+   private callback: () => void;
 
 	constructor(private nav: NavController, private params: NavParams,
-               private plat: Platform, private servidor: Servidor,
-               private alert: AlertController) {
+               private plat: Platform, private servidor: Servidor) {
       this.idSeminario = params.get('idSeminario');
+      this.callback = params.get('callback');
       this.bt = (<any>window).networking.bluetooth;
       this.escutando = false;
    }
@@ -74,13 +74,13 @@ export class BluetoothProfessor {
       this.servidor.post('attendence/submit',
          {nusp: nusp, seminar_id: this.idSeminario},
          () => {
-            // TODO: callback para a tela de detalhes do seminário atualizar a lista de alunos!
             this.nav.pop();
+            this.callback();
          },
          (erro, tipo) => {
             this.servidor.msgErroPadrao(erro, tipo);
          }
-      )
+      );
    }
 
    ionViewWillUnload() {

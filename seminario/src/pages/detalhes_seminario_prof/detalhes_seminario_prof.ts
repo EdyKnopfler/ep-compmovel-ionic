@@ -26,8 +26,7 @@ export class DetalhesSeminarioProf {
       this.callback = params.get('callback');
 
       this.loading = this.loadingCtrl.create({
-         content: `
-         <ion-spinner >Carregando</ion-spinner>`
+         content: '<ion-spinner >Carregando</ion-spinner>'
       });
 
       this.listarAlunos();
