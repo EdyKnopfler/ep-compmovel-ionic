@@ -17,7 +17,6 @@ import { BluetoothProfessor } from '../pages/bluetooth_prof/bluetooth_prof';
 import { ListarSeminarios } from '../pages/listar_seminarios/listar_seminarios';
 import { CadastrarSeminario } from '../pages/cadastrar_seminario/cadastrar_seminario';
 import { DetalhesSeminarioProf } from '../pages/detalhes_seminario_prof/detalhes_seminario_prof';
-import { DetalhesSeminarioAluno } from '../pages/detalhes_seminario_aluno/detalhes_seminario_aluno';
 import { MeusSeminarios } from '../pages/meus_seminarios/meus_seminarios';
 import { CadastroUsuario } from '../pages/cadastro_usuario/cadastro_usuario';
 import { QRCodeModule } from 'angular2-qrcode'; 
@@ -37,7 +36,6 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
       ListarSeminarios,
       DetalhesSeminarioProf,
       MostrarQRCode, 
-      DetalhesSeminarioAluno,
       CadastrarSeminario,
       MeusSeminarios,
       CadastroUsuario
@@ -62,7 +60,6 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
       ListarSeminarios,
       DetalhesSeminarioProf,
       MostrarQRCode, 
-      DetalhesSeminarioAluno,
       CadastrarSeminario,
       MeusSeminarios,
       CadastroUsuario

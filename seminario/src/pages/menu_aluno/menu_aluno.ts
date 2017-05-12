@@ -5,6 +5,11 @@ import { MeusSeminarios } from '../meus_seminarios/meus_seminarios';
 import { CadastroUsuario } from '../cadastro_usuario/cadastro_usuario';
 import { HomePage } from '../home/home';
 
+import { BluetoothAluno } from '../bluetooth_aluno/bluetooth_aluno';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Servidor } from '../../service/servidor';
+import { AlertController } from 'ionic-angular';
+
 
 @Component({
    selector: 'page-menu-aluno',
@@ -14,7 +19,9 @@ export class MenuAluno {
 
    private nusp: string;
 
-   constructor(private nav: NavController, params: NavParams) {
+   constructor(private nav: NavController, params: NavParams,
+               private barcodeScanner: BarcodeScanner,
+               private servidor: Servidor, private alert: AlertController) {
       this.nusp = params.get('nusp');
    }
 
@@ -32,6 +39,34 @@ export class MenuAluno {
 
    desconectar() {
       this.nav.setRoot(HomePage, {});
+   }
+
+   confirmarPorBluetooth() {
+      this.nav.push(BluetoothAluno, {nusp: this.nusp});
+   }
+
+   confirmarPorQR() {
+      this.barcodeScanner.scan().then((barcodeData) => {
+         this.enviarConfirmacao(barcodeData.text);
+      }, (err) => {
+         alert(err.message);
+      });
+   }
+
+   enviarConfirmacao(idSeminario) {
+      this.servidor.post('attendence/submit',
+         {nusp: this.nusp, seminar_id: idSeminario},
+         () => {
+            this.alert.create({
+               title: 'Confirmação de Presença',
+               subTitle: 'Enviada com sucesso!',
+               buttons: ['OK']
+            }).present();
+         },
+         (erro, tipo) => {
+            this.servidor.msgErroPadrao(erro, tipo);
+         }
+      );
    }
 
 }

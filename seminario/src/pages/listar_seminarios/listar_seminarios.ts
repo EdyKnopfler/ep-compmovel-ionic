@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Servidor } from '../../service/servidor';
 import { DetalhesSeminarioProf } from '../detalhes_seminario_prof/detalhes_seminario_prof';
-import { DetalhesSeminarioAluno } from '../detalhes_seminario_aluno/detalhes_seminario_aluno';
 
 @Component({
    selector: 'page-listar-sem',
@@ -53,8 +52,6 @@ export class ListarSeminarios {
             }
          });
       }
-      else
-         this.nav.push(DetalhesSeminarioAluno, {id: id, nome: nome, nusp: this.nusp});
    }
 
    initializeItems() {

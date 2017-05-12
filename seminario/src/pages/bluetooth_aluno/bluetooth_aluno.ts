@@ -9,7 +9,6 @@ import { UUID } from '../../service/btooth_uuid';
 })
 export class BluetoothAluno {
 
-   private idSeminario: string;
    private nusp: string;
 	private bt;
    private descobrindo: boolean;
@@ -19,7 +18,6 @@ export class BluetoothAluno {
 	constructor(private nav: NavController, private plat: Platform,
                private params: NavParams, private viewCtrl: ViewController,
                private alertCtrl: AlertController) {
-      this.idSeminario = params.get('idSeminario');
       this.nusp = params.get('nusp');
 		this.bt = (<any>window).networking.bluetooth;
       this.descobrindo = false;

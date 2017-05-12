@@ -17,14 +17,29 @@
       <ion-icon name="md-list" item-left></ion-icon>
       Listar Seminários
     </button>
+
     <button ion-item (click)="seminariosQueAssisti()">
       <ion-icon name="md-checkbox" item-left></ion-icon>
       Seminários que Assisti
     </button>
+
     <button ion-item (click)="desconectar()">
       <ion-icon name="md-exit" item-left></ion-icon>
       Desconectar
     </button>
 
+    <ion-list-header>
+      Confirmação de presença
+    </ion-list-header>
+    
+    <button ion-item (click)="confirmarPorBluetooth()">
+      <ion-icon name="bluetooth" item-left></ion-icon>
+      Bluetooth
+    </button>
+    
+    <button ion-item (click)="confirmarPorQR()">
+      <ion-icon name="qr-scanner" item-left></ion-icon>
+      QRCode
+    </button>
   </ion-list>
 </ion-content>
